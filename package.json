@@ -1,0 +1,21 @@
+{
+  "name": "datparserjs",
+  "version": "1.0.0",
+  "description": "A parser for Tibia 11's .dat format written for node.js.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "tibia",
+    "11",
+    "dat",
+    "parser"
+  ],
+  "author": "Summ",
+  "license": "ISC",
+  "dependencies": {
+    "minimist": "^1.2.0",
+    "protobufjs": "^5.0.1"
+  }
+}

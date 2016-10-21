@@ -1,0 +1,154 @@
+message Attributes {
+    optional Ground ground = 1;
+    optional bool groundBorder = 2;
+    optional bool bottom = 3;
+    optional bool top = 4;
+    optional bool container = 5;
+    optional bool stackable = 6;
+    optional bool use = 7;
+    optional bool forceUse = 8;
+    optional bool multiUse = 9;
+    optional Writable writable = 10;
+    optional WritableOnce writableOnce = 11;
+    optional bool splash = 12;
+    optional bool unwalkable = 13;
+    optional bool unmovable = 14;
+    optional bool unsight = 15;
+    optional bool blockPath = 16;
+    optional bool noMoveAnimation = 17;
+    optional bool pickupable = 18;
+    optional bool fluidContainer = 19;
+    optional bool hangable = 20;
+    optional Hook hook = 21;
+    optional bool rotatable = 22;
+    optional Light light = 23;
+    optional bool dontHide = 24;
+    optional bool translucent = 25;
+    optional Elevation elevation = 26;
+    optional Height height = 27;
+    optional bool lyingObject = 28;
+    optional bool alwaysAnimated = 29;
+    optional Minimap minimapColor = 30;
+    optional LensHelp lenshelpType = 31;
+    optional bool fullGround = 32;
+    optional bool ignoreLook = 33;
+    optional Clothes cloth = 34;
+    optional DefaultAction defaultAction = 35;
+    optional Market marketData = 36;
+    optional bool wrappable = 37;
+    optional bool unwrappable = 38;
+    optional bool topeffect = 39;
+
+    message Ground {
+      required uint32 speed = 1;
+    }
+    message Writable {
+      required uint32 length = 1;
+    }
+    message WritableOnce {
+      required uint32 length = 1;
+    }
+    message Hook {
+      enum HOOK_TYPE {
+          HOOK_SOUTH = 1;
+          HOOK_EAST = 2;
+      }
+
+      required HOOK_TYPE direction = 1;
+    }
+    message Light {
+      required uint32 brightness = 1;
+      required uint32 color = 2;
+    }
+    message Elevation {
+      required uint32 x = 1;
+      required uint32 y = 2;
+    }
+    message Height {
+      required uint32 elevation = 1;
+    }
+    message Minimap {
+      required uint32 color = 1;
+    }
+    message LensHelp {
+      required uint32 id = 1;
+    }
+    message Clothes {
+      required uint32 slot = 1;
+    }
+    message DefaultAction {
+      enum PLAYER_ACTION {
+          PLAYER_ACTION_NONE = 0;
+          PLAYER_ACTION_LOOK = 1;
+          PLAYER_ACTION_USE = 2;
+          PLAYER_ACTION_OPEN = 3;
+          PLAYER_ACTION_AUTOWALK_HIGHLIGHT = 4;
+      }
+
+      required PLAYER_ACTION action = 1;
+    }
+    message Market {
+      required uint32 category = 1;
+      required uint32 tradeAs = 2;
+      required uint32 showAs = 3;
+      required string name = 4;
+      repeated uint32 vocation = 5;
+      optional uint32 level = 6 [default=0];
+    }
+}
+
+message FrameGroup {
+    required uint32 fixedFrameGroup = 1; // ?
+    required uint32 id = 2; // ?
+    required SpriteInfo spriteInfo = 3;
+
+    message SpriteInfo {
+        required uint32 patternX = 1;
+        required uint32 patternY = 2;
+        required uint32 patternZ = 3;
+        required uint32 layers = 4;
+        repeated uint32 spriteIDs = 5;
+        repeated SpriteAnimation animations = 6;
+        optional uint32 cropSize = 7;
+        optional bool isOpaque = 8;
+        optional Size size = 9; // size does not seem to appear at all
+
+        message SpriteAnimation {
+            enum ANIMATION_LOOP_TYPE {
+                ANIMATION_LOOP_TYPE_PINGPONG = -1;
+                ANIMATION_LOOP_TYPE_INFINITE = 0;
+                ANIMATION_LOOP_TYPE_COUNTED = 1;
+            }
+
+            optional uint32 startPhase = 1;
+            optional bool synced = 2;
+            optional bool randomStartPhase = 3 [default=false];
+            required ANIMATION_LOOP_TYPE loopType = 4;
+            optional uint32 loopCount = 5;
+            repeated SpritePhase phases = 6;
+
+            message SpritePhase {
+                required uint32 minDuration = 1;
+                required uint32 maxDuration = 2;
+            }
+        }
+
+        message Size {
+            required uint32 width = 1;
+            required uint32 height = 2;
+        }
+    }
+}
+
+message Appearance {
+    required uint32 clientID = 1;
+    repeated FrameGroup frameGroups = 2;
+    required Attributes attributes = 3;
+}
+
+message DatFile {
+    repeated Appearance objects = 1;
+    repeated Appearance outfits = 2;
+    repeated Appearance effects = 3;
+    repeated Appearance missiles = 4;
+}
