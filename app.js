@@ -11,7 +11,7 @@ const ProtoBuf = require('protobufjs'),
 const ProtoDatFile = ProtoBuf.loadProtoFile('./dat.proto').build('DatFile');
 
 console.log(`>> Loading ${argv.file}..`);
-fs.readFile(`./${argv.file}`, (err, content) => {
+fs.readFile(`${argv.file}`, (err, content) => {
 	if (err) {
 		console.log(`>> Error: Unable to load ${argv.file}..`)
 		return;
